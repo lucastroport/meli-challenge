@@ -55,9 +55,16 @@ dependencies {
     def coil_version = "2.2.2"
     def androidx_lifecycle_version = "2.5.1"
     def androidx_core_version = "1.9.0"
+    def koin_version = "3.2.2"
+    def koin_android_version= "3.3.0"
+    def logging_interceptor_version = "4.10.0"
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
     implementation "androidx.core:core-ktx:$androidx_core_version"
+
+    // Koin (DI)
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_android_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -72,6 +79,9 @@ dependencies {
 
     // Kotlinx serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version"
+
+    // Logging interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
 
     // Compose
     implementation "androidx.navigation:navigation-compose:$compose_nav_version"
