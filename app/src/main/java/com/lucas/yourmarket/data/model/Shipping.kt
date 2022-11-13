@@ -11,7 +11,6 @@ data class Shipping(
     @SerializedName(FIELD_FREE_SHIPPING)
     val freeShipping: Boolean?
 ): Parcelable {
-
     companion object {
         internal const val FIELD_FREE_SHIPPING = "free_shipping"
     }
