@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.ui.theme
+package com.lucas.yourmarket.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
