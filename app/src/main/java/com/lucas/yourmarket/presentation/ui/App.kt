@@ -2,6 +2,7 @@ package com.lucas.yourmarket.presentation.ui
 
 import android.app.Application
 import com.lucas.yourmarket.di.networkModule
+import com.lucas.yourmarket.di.repositoryModule
 import com.lucas.yourmarket.di.storageModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
@@ -17,7 +18,7 @@ class App : KoinComponent, Application() {
             // Allows coin to inject Android context anywhere
             androidContext(this@App)
 
-            modules(listOf(networkModule, storageModule))
+            modules(listOf(networkModule, storageModule, repositoryModule))
         }
     }
 }
