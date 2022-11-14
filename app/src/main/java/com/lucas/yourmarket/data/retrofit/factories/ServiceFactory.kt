@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.data.retrofit.builder
+package com.lucas.yourmarket.data.retrofit.factories
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
