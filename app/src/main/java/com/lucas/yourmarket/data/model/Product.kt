@@ -32,7 +32,7 @@ data class Product(
     private val _shipping: Shipping,
     @ColumnInfo(name = FIELD_PICTURES)
     @SerializedName(FIELD_PICTURES)
-    val pictures: List<Picture?> = emptyList(),
+    val pictures: List<Picture> = emptyList(),
     @ColumnInfo(name = FIELD_SELLER_ID)
     @SerializedName(FIELD_SELLER_ID)
     val sellerId: Long?,
