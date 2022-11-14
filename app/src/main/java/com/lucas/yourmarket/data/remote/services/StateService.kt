@@ -1,7 +1,7 @@
-package com.lucas.yourmarket.data.retrofit.services
+package com.lucas.yourmarket.data.remote.services
 
 import com.lucas.yourmarket.data.model.State
-import com.lucas.yourmarket.data.retrofit.Endpoint.ENDPOINT_GET_STATE
+import com.lucas.yourmarket.data.remote.Endpoint.ENDPOINT_GET_STATE
 import retrofit2.http.GET
 import retrofit2.http.Path
 

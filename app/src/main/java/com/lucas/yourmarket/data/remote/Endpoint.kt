@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.data.retrofit
+package com.lucas.yourmarket.data.remote
 
 object Endpoint {
 

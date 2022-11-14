@@ -5,7 +5,7 @@ import android.util.Log
 abstract class BaseModel {
 
     companion object {
-        private const val TAG_FIELD_ERROR = "MANDATORY_FIELDS"
+        private val CLASS_TAG = BaseModel::class.qualifiedName
     }
 
     abstract fun getEntityName(): String
@@ -19,7 +19,7 @@ abstract class BaseModel {
             val exception = IllegalArgumentException(
                 "(${getEntityName()}) - Unable to map data: ${nullParams.first()} field not found."
             )
-            Log.e(TAG_FIELD_ERROR, Log.getStackTraceString(exception))
+            Log.e(CLASS_TAG, Log.getStackTraceString(exception))
             return false
         }
         return true
