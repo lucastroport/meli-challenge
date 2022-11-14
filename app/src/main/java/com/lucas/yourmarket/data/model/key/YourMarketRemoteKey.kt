@@ -2,10 +2,12 @@ package com.lucas.yourmarket.data.model.key
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.lucas.yourmarket.data.model.key.YourMarketRemoteKey.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 data class YourMarketRemoteKey(
+    @PrimaryKey
     @ColumnInfo(name = FIELD_ID)
     val id: String,
     @ColumnInfo(name = FIELD_PREV_KEY)

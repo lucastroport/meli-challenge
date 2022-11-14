@@ -1,10 +1,12 @@
 package com.lucas.yourmarket.data.storage.dao
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.lucas.yourmarket.data.model.key.YourMarketRemoteKey
 
+@Dao
 interface YourMarketRemoteKeyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
