@@ -29,7 +29,7 @@ data class Product(
     private val _thumbnail: String?,
     @Embedded
     @SerializedName(FIELD_SHIPPING)
-    private val _shipping: Shipping,
+    val _shipping: Shipping,
     @ColumnInfo(name = FIELD_PICTURES)
     @SerializedName(FIELD_PICTURES)
     val pictures: List<Picture> = emptyList(),

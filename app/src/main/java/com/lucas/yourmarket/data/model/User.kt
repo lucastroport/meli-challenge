@@ -17,7 +17,7 @@ data class User(
     val id: Long,
     @ColumnInfo(name = FIELD_NICKNAME)
     @SerializedName(FIELD_NICKNAME)
-    private val nickname: String?,
+    val nickname: String?,
     @Embedded
     @SerializedName(FIELD_ADDRESS)
     val address: Address,
