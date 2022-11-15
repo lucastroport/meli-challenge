@@ -1,7 +1,7 @@
 package com.lucas.yourmarket.data.remote.datastore.implementations
 
 import android.util.Log
-import com.lucas.yourmarket.data.model.Currency
+import com.lucas.yourmarket.domain.model.Currency
 import com.lucas.yourmarket.data.remote.datastore.interfaces.CurrencyRemoteDatastore
 import com.lucas.yourmarket.data.remote.services.CurrencyService
 

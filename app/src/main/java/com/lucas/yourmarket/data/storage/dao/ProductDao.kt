@@ -5,9 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.lucas.yourmarket.data.model.Currency
-import com.lucas.yourmarket.data.model.Picture
-import com.lucas.yourmarket.data.model.Product
+import com.lucas.yourmarket.domain.model.Currency
+import com.lucas.yourmarket.domain.model.Picture
+import com.lucas.yourmarket.domain.model.Product
 import com.lucas.yourmarket.data.storage.query.ProductWithCurrencyQuery
 
 @Dao

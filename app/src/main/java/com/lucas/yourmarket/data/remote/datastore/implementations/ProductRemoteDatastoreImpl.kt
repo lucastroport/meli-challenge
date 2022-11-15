@@ -2,8 +2,8 @@ package com.lucas.yourmarket.data.remote.datastore.implementations
 
 import android.util.Log
 import com.lucas.yourmarket.BuildConfig
-import com.lucas.yourmarket.data.model.Product
-import com.lucas.yourmarket.data.model.response.ProductsPagingResponse
+import com.lucas.yourmarket.domain.model.Product
+import com.lucas.yourmarket.domain.model.response.ProductsPagingResponse
 import com.lucas.yourmarket.data.remote.datastore.interfaces.ProductRemoteDatastore
 import com.lucas.yourmarket.data.remote.services.ProductService
 

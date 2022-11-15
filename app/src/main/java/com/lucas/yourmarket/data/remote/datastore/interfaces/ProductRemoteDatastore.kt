@@ -1,7 +1,7 @@
 package com.lucas.yourmarket.data.remote.datastore.interfaces
 
-import com.lucas.yourmarket.data.model.Product
-import com.lucas.yourmarket.data.model.response.ProductsPagingResponse
+import com.lucas.yourmarket.domain.model.Product
+import com.lucas.yourmarket.domain.model.response.ProductsPagingResponse
 
 interface ProductRemoteDatastore {
     suspend fun fetchProducts(query: String, offset: Int, limit: Int): ProductsPagingResponse?

@@ -1,7 +1,7 @@
 package com.lucas.yourmarket.data.storage.datastore.interfaces
 
 import androidx.paging.PagingSource
-import com.lucas.yourmarket.data.model.Product
+import com.lucas.yourmarket.domain.model.Product
 import com.lucas.yourmarket.data.storage.query.ProductWithCurrencyQuery
 
 interface ProductLocalDatastore {

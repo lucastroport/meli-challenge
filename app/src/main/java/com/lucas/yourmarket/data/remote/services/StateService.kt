@@ -1,6 +1,6 @@
 package com.lucas.yourmarket.data.remote.services
 
-import com.lucas.yourmarket.data.model.State
+import com.lucas.yourmarket.domain.model.State
 import com.lucas.yourmarket.data.remote.Endpoint.ENDPOINT_GET_STATE
 import retrofit2.http.GET
 import retrofit2.http.Path

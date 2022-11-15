@@ -1,7 +1,7 @@
 package com.lucas.yourmarket.data.storage.datastore.implementations
 
 import android.util.Log
-import com.lucas.yourmarket.data.model.Currency
+import com.lucas.yourmarket.domain.model.Currency
 import com.lucas.yourmarket.data.storage.dao.CurrencyDao
 import com.lucas.yourmarket.data.storage.datastore.interfaces.CurrencyLocalDatastore
 

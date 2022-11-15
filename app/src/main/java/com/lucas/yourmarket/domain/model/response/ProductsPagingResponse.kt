@@ -1,7 +1,7 @@
-package com.lucas.yourmarket.data.model.response
+package com.lucas.yourmarket.domain.model.response
 
 import android.os.Parcelable
-import com.lucas.yourmarket.data.model.Product
+import com.lucas.yourmarket.domain.model.Product
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

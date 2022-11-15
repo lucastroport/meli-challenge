@@ -1,6 +1,6 @@
 package com.lucas.yourmarket.data.storage.datastore.interfaces
 
-import com.lucas.yourmarket.data.model.State
+import com.lucas.yourmarket.domain.model.State
 
 interface StateLocalDatastore {
     suspend fun getStateById(id: String): State?

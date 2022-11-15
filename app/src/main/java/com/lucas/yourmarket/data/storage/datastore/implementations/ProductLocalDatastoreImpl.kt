@@ -2,7 +2,7 @@ package com.lucas.yourmarket.data.storage.datastore.implementations
 
 import android.util.Log
 import androidx.paging.PagingSource
-import com.lucas.yourmarket.data.model.Product
+import com.lucas.yourmarket.domain.model.Product
 import com.lucas.yourmarket.data.storage.dao.ProductDao
 import com.lucas.yourmarket.data.storage.datastore.interfaces.ProductLocalDatastore
 import com.lucas.yourmarket.data.storage.query.ProductWithCurrencyQuery
