@@ -1,7 +1,5 @@
 package com.lucas.yourmarket.di
 
-import com.lucas.yourmarket.data.repository.implementations.*
-import com.lucas.yourmarket.data.repository.interfaces.*
 import com.lucas.yourmarket.domain.repository.implementations.CurrencyRepositoryImpl
 import com.lucas.yourmarket.domain.repository.implementations.ProductRepositoryImpl
 import com.lucas.yourmarket.domain.repository.implementations.StateRepositoryImpl
