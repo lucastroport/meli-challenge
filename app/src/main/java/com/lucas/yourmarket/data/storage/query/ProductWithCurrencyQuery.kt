@@ -2,10 +2,10 @@ package com.lucas.yourmarket.data.storage.query
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
-import com.lucas.yourmarket.data.model.BaseModel
-import com.lucas.yourmarket.data.model.Picture
-import com.lucas.yourmarket.data.model.Product
-import com.lucas.yourmarket.data.model.Shipping
+import com.lucas.yourmarket.domain.model.BaseModel
+import com.lucas.yourmarket.domain.model.Picture
+import com.lucas.yourmarket.domain.model.Product
+import com.lucas.yourmarket.domain.model.Shipping
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

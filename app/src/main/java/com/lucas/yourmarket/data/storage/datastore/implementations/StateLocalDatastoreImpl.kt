@@ -1,7 +1,7 @@
 package com.lucas.yourmarket.data.storage.datastore.implementations
 
 import android.util.Log
-import com.lucas.yourmarket.data.model.State
+import com.lucas.yourmarket.domain.model.State
 import com.lucas.yourmarket.data.storage.dao.StateDao
 import com.lucas.yourmarket.data.storage.datastore.interfaces.StateLocalDatastore
 

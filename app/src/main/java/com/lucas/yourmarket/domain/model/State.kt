@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.data.model
+package com.lucas.yourmarket.domain.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

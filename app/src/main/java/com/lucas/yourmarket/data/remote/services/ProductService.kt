@@ -1,7 +1,7 @@
 package com.lucas.yourmarket.data.remote.services
 
-import com.lucas.yourmarket.data.model.Product
-import com.lucas.yourmarket.data.model.response.ProductsPagingResponse
+import com.lucas.yourmarket.domain.model.Product
+import com.lucas.yourmarket.domain.model.response.ProductsPagingResponse
 import com.lucas.yourmarket.data.remote.Endpoint.ENDPOINT_GET_PRODUCT
 import com.lucas.yourmarket.data.remote.Endpoint.ENDPOINT_SEARCH_PRODUCT
 import retrofit2.http.GET

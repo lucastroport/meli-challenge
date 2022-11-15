@@ -1,8 +1,8 @@
-package com.lucas.yourmarket.data.repository.implementations
+package com.lucas.yourmarket.domain.repository.implementations
 
-import com.lucas.yourmarket.data.model.State
+import com.lucas.yourmarket.domain.model.State
 import com.lucas.yourmarket.data.remote.datastore.interfaces.StateRemoteDatastore
-import com.lucas.yourmarket.data.repository.interfaces.StateRepository
+import com.lucas.yourmarket.domain.repository.interfaces.StateRepository
 import com.lucas.yourmarket.data.storage.datastore.interfaces.StateLocalDatastore
 
 class StateRepositoryImpl(

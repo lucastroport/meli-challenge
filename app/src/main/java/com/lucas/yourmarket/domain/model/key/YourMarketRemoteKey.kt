@@ -1,9 +1,9 @@
-package com.lucas.yourmarket.data.model.key
+package com.lucas.yourmarket.domain.model.key
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.lucas.yourmarket.data.model.key.YourMarketRemoteKey.Companion.TABLE_NAME
+import com.lucas.yourmarket.domain.model.key.YourMarketRemoteKey.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 data class YourMarketRemoteKey(

@@ -1,7 +1,7 @@
 package com.lucas.yourmarket.data.remote.datastore.implementations
 
 import android.util.Log
-import com.lucas.yourmarket.data.model.User
+import com.lucas.yourmarket.domain.model.User
 import com.lucas.yourmarket.data.remote.datastore.interfaces.UserRemoteDatastore
 import com.lucas.yourmarket.data.remote.services.UserService
 

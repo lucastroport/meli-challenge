@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.data.repository.interfaces
+package com.lucas.yourmarket.domain.repository.interfaces
 
 import com.lucas.yourmarket.data.storage.query.ProductWithCurrencyQuery
 

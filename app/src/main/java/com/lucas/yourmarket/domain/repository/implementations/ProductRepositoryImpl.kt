@@ -1,7 +1,7 @@
-package com.lucas.yourmarket.data.repository.implementations
+package com.lucas.yourmarket.domain.repository.implementations
 
 import com.lucas.yourmarket.data.remote.datastore.interfaces.ProductRemoteDatastore
-import com.lucas.yourmarket.data.repository.interfaces.ProductRepository
+import com.lucas.yourmarket.domain.repository.interfaces.ProductRepository
 import com.lucas.yourmarket.data.storage.datastore.interfaces.ProductLocalDatastore
 import com.lucas.yourmarket.data.storage.query.ProductWithCurrencyQuery
 

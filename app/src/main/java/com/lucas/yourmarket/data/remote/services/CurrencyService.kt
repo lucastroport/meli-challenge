@@ -1,6 +1,6 @@
 package com.lucas.yourmarket.data.remote.services
 
-import com.lucas.yourmarket.data.model.Currency
+import com.lucas.yourmarket.domain.model.Currency
 import com.lucas.yourmarket.data.remote.Endpoint.ENDPOINT_GET_CURRENCIES
 import retrofit2.http.GET
 

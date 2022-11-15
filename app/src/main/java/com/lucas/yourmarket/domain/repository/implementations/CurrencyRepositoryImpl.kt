@@ -1,7 +1,7 @@
-package com.lucas.yourmarket.data.repository.implementations
+package com.lucas.yourmarket.domain.repository.implementations
 
 import com.lucas.yourmarket.data.remote.datastore.interfaces.CurrencyRemoteDatastore
-import com.lucas.yourmarket.data.repository.interfaces.CurrencyRepository
+import com.lucas.yourmarket.domain.repository.interfaces.CurrencyRepository
 import com.lucas.yourmarket.data.storage.datastore.interfaces.CurrencyLocalDatastore
 
 class CurrencyRepositoryImpl(

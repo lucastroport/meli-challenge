@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.data.model.response
+package com.lucas.yourmarket.domain.model.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

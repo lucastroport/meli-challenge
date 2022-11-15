@@ -1,6 +1,6 @@
 package com.lucas.yourmarket.data.remote.services
 
-import com.lucas.yourmarket.data.model.User
+import com.lucas.yourmarket.domain.model.User
 import com.lucas.yourmarket.data.remote.Endpoint.ENDPOINT_GET_USER_BY_ID
 import retrofit2.http.GET
 import retrofit2.http.Path

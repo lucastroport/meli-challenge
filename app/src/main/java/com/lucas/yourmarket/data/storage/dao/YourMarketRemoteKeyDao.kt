@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.lucas.yourmarket.data.model.key.YourMarketRemoteKey
+import com.lucas.yourmarket.domain.model.key.YourMarketRemoteKey
 
 @Dao
 interface YourMarketRemoteKeyDao {

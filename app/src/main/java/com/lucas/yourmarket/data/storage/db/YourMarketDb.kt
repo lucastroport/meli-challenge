@@ -3,11 +3,11 @@ package com.lucas.yourmarket.data.storage.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.lucas.yourmarket.data.model.Currency
-import com.lucas.yourmarket.data.model.Product
-import com.lucas.yourmarket.data.model.State
-import com.lucas.yourmarket.data.model.User
-import com.lucas.yourmarket.data.model.key.YourMarketRemoteKey
+import com.lucas.yourmarket.domain.model.Currency
+import com.lucas.yourmarket.domain.model.Product
+import com.lucas.yourmarket.domain.model.State
+import com.lucas.yourmarket.domain.model.User
+import com.lucas.yourmarket.domain.model.key.YourMarketRemoteKey
 import com.lucas.yourmarket.data.storage.Converters
 import com.lucas.yourmarket.data.storage.dao.*
 
