@@ -12,7 +12,11 @@ class GetCurrenciesInteractor : GetCurrenciesUseCase {
     private val currencyRepository: CurrencyRepository by inject()
 
     override suspend fun execute(request: BaseUseCase.Request?): Status<BaseUseCase.Response> {
-        currencyRepository.fetchCurrencies()
-        return Status.Success()
+        val currencies = currencyRepository.fetchCurrencies().isEmpty()
+        return if (currencies) {
+            Status.Success()
+        } else {
+            Status.Failure.GeneralFailure("Currencies could not be fetched")
+        }
     }
 }
