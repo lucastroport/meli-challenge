@@ -15,11 +15,11 @@ class ProductRemoteDatastoreImpl(
         private val CLASS_TAG = ProductRemoteDatastoreImpl::class.qualifiedName
     }
 
-    override suspend fun fetchProducts(query: String, offset: Int, limit: Int): ProductsPagingResponse? {
+    override suspend fun fetchProducts(query: String, offSet: Int, limit: Int): ProductsPagingResponse? {
         return try {
             productService.fetchProductsPage(
                 siteId = BuildConfig.MELI_SITE_ID,
-                offset = offset,
+                offset = offSet,
                 limit = limit,
                 query = query
             )
