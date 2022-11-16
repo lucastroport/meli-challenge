@@ -1,9 +1,6 @@
 package com.lucas.yourmarket.di
 
-import com.lucas.yourmarket.domain.interactors.ClearStorageInteractor
-import com.lucas.yourmarket.domain.interactors.ProductInteractor
-import com.lucas.yourmarket.domain.interactors.StateInteractor
-import com.lucas.yourmarket.domain.interactors.UserInteractor
+import com.lucas.yourmarket.domain.interactors.*
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -13,4 +10,5 @@ val domainModule = module {
     single { ProductInteractor() }
     single { StateInteractor() }
     single { UserInteractor() }
+    single { GetCurrenciesInteractor() }
 }
