@@ -39,7 +39,7 @@ class ProductRemoteMediator(
 
         val currentPage: Int = when(loadType) {
             LoadType.REFRESH -> {
-                val remoteKey = getRemoteKeyForFirstItem(state)
+                val remoteKey = getRemoteKeyClosestToCurrentPosition(state)
                 remoteKey?.nextPage?.minus(1) ?: START_PAGE_INDEX
             }
             LoadType.PREPEND -> {
