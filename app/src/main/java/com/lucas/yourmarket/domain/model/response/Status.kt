@@ -5,5 +5,6 @@ sealed class Status<out T> {
 
     sealed class Failure : Status<Nothing>() {
         data class ExceptionFailure(val e: Exception) : Failure()
+        data class GeneralFailure(val message: String) : Failure()
     }
 }
