@@ -3,4 +3,10 @@
 
     <string name="search_placeholder">Search Products</string>
     <string name="search_results_label">Results</string>
+    <string name="free_shipping_label">Free Shipping</string>
+    <string name="seller_information_label">Seller Information</string>
+    <string name="location_label">Location</string>
+    <string name="reputation_label">Reputation</string>
+    <string name="platinum_label">MercadoLíder Platinum</string>
+    <string name="platinum_description">One of the bests in the site!</string>
 </resources>
