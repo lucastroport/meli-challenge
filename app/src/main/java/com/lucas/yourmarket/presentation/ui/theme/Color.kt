@@ -9,6 +9,7 @@ object YourMarketColor {
     val BlueGrey = Color(0xff344356)
     val DarkGray = Color(0xff1c1e20)
     val Green = Color(0xff008540)
+    val LighterGreen = Color(0xFF48A157)
     val LighterGray = Color(0xffd8d8d8)
     val LightGray = Color(0xff7f7f7f)
     val MidBlue = Color(0xff0071bc)

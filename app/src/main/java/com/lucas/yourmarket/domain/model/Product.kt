@@ -42,6 +42,9 @@ data class Product(
     @ColumnInfo(name = FIELD_CURRENCY_ID)
     @SerializedName(FIELD_CURRENCY_ID)
     val currencyId: String?,
+    @ColumnInfo(name = FIELD_SOLD_QUANTITY)
+    @SerializedName(FIELD_SOLD_QUANTITY)
+    val soldQuantity: Int?
 ) : Parcelable, BaseModel() {
 
     companion object {
@@ -59,6 +62,7 @@ data class Product(
         internal const val FIELD_SELLER_ID = "seller_id"
         internal const val FIELD_WARRANTY = "warranty"
         internal const val FIELD_CURRENCY_ID = "currency_id"
+        internal const val FIELD_SOLD_QUANTITY = "sold_quantity"
     }
 
     val thumbnail: String?

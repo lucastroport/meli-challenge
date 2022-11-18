@@ -1,8 +1,10 @@
-package com.lucas.yourmarket.presentation.ui.screens.home
+package com.lucas.yourmarket.presentation.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,12 +20,13 @@ import com.lucas.yourmarket.presentation.ui.theme.YourMarketColor
 import com.lucas.yourmarket.R
 import com.lucas.yourmarket.presentation.models.ProductUI
 import com.lucas.yourmarket.presentation.ui.helpers.wrapInState
-import com.lucas.yourmarket.presentation.ui.screenUtils.ProductSearchItem
-import com.lucas.yourmarket.presentation.ui.screenUtils.SearchBar
+import com.lucas.yourmarket.presentation.ui.screenUtils.*
 import com.lucas.yourmarket.presentation.ui.theme.YourMarketTypography
 
 data class HomeScreenState(
     val searchInput: State<String?>,
+    val loading: State<Boolean?>,
+    val onItemClicked: (Long) -> Unit = {},
     val products: MutableState<List<ProductUI>?> = mutableStateOf(mutableStateListOf())
 )
 
@@ -47,7 +50,8 @@ fun HomeScreenContent(
                 onInputChange = { }
             )
         }
-        state.products.value?.let {
+
+        state.products.value?.let { products ->
             Column(
                 modifier = Modifier.background(color = Color.White)
             ) {
@@ -59,7 +63,13 @@ fun HomeScreenContent(
                     text = stringResource(id = R.string.search_results_label),
                     style = YourMarketTypography.subtitle2
                 )
-                SearchContent(items = it)
+                state.loading.value?.let { loading ->
+                    SearchContent(
+                        items = products,
+                        onItemClicked = state.onItemClicked,
+                        isLoading = loading
+                    )
+                }
             }
         }
     }
@@ -81,15 +91,43 @@ fun HeaderItem() {
 
 @Composable
 fun SearchContent(
-    items: List<ProductUI>
+    items: List<ProductUI>,
+    onItemClicked: (Long) -> Unit,
+    isLoading: Boolean
 ) {
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(color = Color.White),
+        verticalArrangement =
+            if (isLoading)
+                Arrangement.spacedBy(Dimens.grid_2)
+            else
+                Arrangement.spacedBy(Dimens.grid_0)
     ) {
-        items.forEach {
-            ProductSearchItem(productUI = it)
+        isLoading.let { loading ->
+            if (loading) {
+                repeat(5) {
+                    item {
+                        LoadingShimmerEffect()
+                    }
+                }
+            } else {
+                items(
+                    items = items
+                ) { product ->
+                    ProductItemCard(state =
+                        ProductItemCardState(
+                            name = product.name,
+                            key = product.id,
+                            onCardClicked = onItemClicked,
+                            price = "${product.currencySymbol} ${product.price}",
+                            hasFreeShipping = product.isFreeShipping,
+                            thumbnailUrl = product.imageThumbnailUrl
+                        )
+                    )
+                }
+            }
         }
     }
 }
@@ -103,21 +141,15 @@ fun HomeScreenPreview() {
             searchInput = "".wrapInState(),
             products = mutableListOf(
                 ProductUI(
+                    id = 1L,
                     name = "Piano Digital Artesia Performer Black",
                     price = "379",
                     currencySymbol = "U\$S",
-                    sellerName = "Palacio de la Musica",
-                    warranty = "6 meses",
-                    hasWarranty = true,
                     imageThumbnailUrl = "someUrl",
-                    imagesUrl = listOf(""),
-                    isFreeShipping = false,
-                    sellerLocation = "Centro, Montevideo",
-                    isPlatinumUser = true,
-                    reputation = "Excelente",
-                    productCondition = "Nuevo"
+                    isFreeShipping = true
                 )
-            ).wrapInState()
+            ).wrapInState(),
+            loading = false.wrapInState()
         )
     )
 }
