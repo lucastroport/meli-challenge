@@ -1,10 +1,7 @@
 package com.lucas.yourmarket
 
 import android.app.Application
-import com.lucas.yourmarket.di.domainModule
-import com.lucas.yourmarket.di.networkModule
-import com.lucas.yourmarket.di.repositoryModule
-import com.lucas.yourmarket.di.storageModule
+import com.lucas.yourmarket.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
@@ -23,7 +20,8 @@ class App : KoinComponent, Application() {
                 networkModule,
                 storageModule,
                 repositoryModule,
-                domainModule
+                domainModule,
+                appModule
             ))
         }
     }
