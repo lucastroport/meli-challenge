@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.presentation.screens
+package com.lucas.yourmarket.presentation.screens.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
