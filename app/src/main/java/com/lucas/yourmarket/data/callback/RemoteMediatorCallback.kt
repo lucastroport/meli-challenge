@@ -1,7 +1,7 @@
 package com.lucas.yourmarket.data.callback
 
 interface RemoteMediatorCallback {
-    fun onRefreshReceived()
+    suspend fun onRefreshReceived()
     fun onEmptyResponse()
     fun onErrorReceived()
 }

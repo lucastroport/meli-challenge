@@ -1,7 +1,6 @@
 package com.lucas.yourmarket.presentation.screens.home
 
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
@@ -12,10 +11,8 @@ import com.lucas.yourmarket.domain.usecases.ClearStorageUseCase
 import com.lucas.yourmarket.presentation.models.ProductUI
 import com.lucas.yourmarket.presentation.navigation.RouteNavigator
 import com.lucas.yourmarket.presentation.screens.BaseViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flowOf
+import com.lucas.yourmarket.presentation.screens.detail.ProductDetailRoute
+import kotlinx.coroutines.flow.*
 import org.koin.core.component.inject
 
 class HomeViewModel(
@@ -37,19 +34,15 @@ class HomeViewModel(
     private val productLocalDatastore: ProductLocalDatastore by inject()
 
     // UI
-    val products: MutableStateFlow<PagingData<ProductUI>> = MutableStateFlow(PagingData.from(
-        emptyList()
-    ))
+    val products: MutableStateFlow<PagingData<ProductUI>> = MutableStateFlow(PagingData.from(emptyList()))
     val searchField = MutableLiveData("")
     val spinner = MutableLiveData(false)
 
     // Callback
-    private val callback: RemoteMediatorCallback? = this@HomeViewModel
+    private var callback: RemoteMediatorCallback? = null
 
     // UI Callbacks
-    fun onItemClicked(id: String) {
-        Log.i(CLASS_TAG,"Fetching details for product: $id")
-    }
+    fun onItemClicked(id: String) = navigateToRoute(ProductDetailRoute.get(id))
 
     @OptIn(ExperimentalPagingApi::class)
     fun onSearchEnter() {
@@ -57,6 +50,7 @@ class HomeViewModel(
             if (input.isNotEmpty()) {
                 launchIO {
                     withLoadingSpinner(spinner = spinner) {
+                        callback = this@HomeViewModel
                         clearStorageUseCase.execute()
                         Pager(
                             config = PagingConfig(
@@ -91,10 +85,8 @@ class HomeViewModel(
         }
     }
 
-    override fun onRefreshReceived() {
-        launchIO {
-            clearStorageUseCase.execute()
-        }
+    override suspend fun onRefreshReceived() {
+        clearStorageUseCase.execute()
     }
 
     override fun onEmptyResponse() {
@@ -104,7 +96,4 @@ class HomeViewModel(
     override fun onErrorReceived() {
         Log.e(CLASS_TAG, "Error ocurred")
     }
-
-
-
 }

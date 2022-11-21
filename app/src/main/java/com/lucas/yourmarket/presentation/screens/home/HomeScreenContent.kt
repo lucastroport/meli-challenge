@@ -25,8 +25,6 @@ import com.lucas.yourmarket.presentation.models.ProductUI
 import com.lucas.yourmarket.presentation.ui.helpers.wrapInState
 import com.lucas.yourmarket.presentation.ui.screenUtils.*
 import com.lucas.yourmarket.presentation.ui.theme.YourMarketTypography
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
 
 data class HomeScreenState(
@@ -35,9 +33,7 @@ data class HomeScreenState(
     val loading: State<Boolean?>,
     val onEntryChanged: (String) -> Unit,
     val onItemClicked: (String) -> Unit = {},
-    val products: MutableStateFlow<PagingData<ProductUI>> = MutableStateFlow(PagingData.from(
-        emptyList()
-    ))
+    val products: LazyPagingItems<ProductUI>
 )
 
 @Composable
@@ -64,17 +60,9 @@ fun HomeScreenContent(
         Column(
             modifier = Modifier.background(color = Color.White)
         ) {
-            Text(
-                modifier = Modifier
-                    .padding(bottom = Dimens.grid_2, top = Dimens.grid_2)
-                    .fillMaxWidth()
-                    .gutterPadding(),
-                text = stringResource(id = R.string.search_results_label),
-                style = YourMarketTypography.subtitle2
-            )
             state.loading.value?.let { loading ->
                 SearchContent(
-                    items = state.products.collectAsLazyPagingItems(),
+                    items = state.products,
                     onItemClicked = state.onItemClicked,
                     isLoading = loading
                 )
@@ -99,14 +87,31 @@ fun HeaderItem() {
 
 @Composable
 fun SearchContent(
-    items: LazyPagingItems<ProductUI>,
+    items: LazyPagingItems<ProductUI>?,
     onItemClicked: (String) -> Unit,
     isLoading: Boolean
 ) {
+    val foundResults = remember { mutableStateOf(false) }
+    if (foundResults.value) {
+        Text(
+            modifier = Modifier
+                .padding(bottom = Dimens.grid_2, top = Dimens.grid_2)
+                .fillMaxWidth()
+                .gutterPadding(),
+            text = stringResource(id = R.string.search_results_label),
+            style = YourMarketTypography.subtitle2
+        )
+    }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White),
+            .background(color = Color.White)
+            .padding(top =
+                if (foundResults.value)
+                    Dimens.grid_0
+                else
+                    Dimens.grid_2
+            ),
         verticalArrangement =
             if (isLoading)
                 Arrangement.spacedBy(Dimens.grid_2)
@@ -121,20 +126,23 @@ fun SearchContent(
                     }
                 }
             } else {
-                items(
-                    items = items
-                ) { product ->
-                    product?.let {
-                        ProductItemCard(state =
-                            ProductItemCardState(
-                                name = it.name,
-                                key = it.id,
-                                onCardClicked = { productId -> onItemClicked(productId) },
-                                price = "${it.currencySymbol} ${it.price}",
-                                hasFreeShipping = it.isFreeShipping,
-                                thumbnailUrl = it.imageThumbnailUrl
+                items?.let { products ->
+                    foundResults.value = products.itemCount > 0
+                    items(
+                        items = products
+                    ) { product ->
+                        product?.let {
+                            ProductItemCard(state =
+                                ProductItemCardState(
+                                    name = it.name,
+                                    key = it.id,
+                                    onCardClicked = { productId -> onItemClicked(productId) },
+                                    price = "${it.currencySymbol} ${it.price}",
+                                    hasFreeShipping = it.isFreeShipping,
+                                    thumbnailUrl = it.imageThumbnailUrl
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
@@ -149,7 +157,8 @@ fun HomeScreenPreview() {
     HomeScreenContent(state =
         HomeScreenState(
             searchInput = "".wrapInState(),
-            products = MutableStateFlow(PagingData.from(
+            products
+            = flowOf(PagingData.from(
                 listOf(
                     ProductUI(
                         id = "CODE",
@@ -160,11 +169,10 @@ fun HomeScreenPreview() {
                         isFreeShipping = true
                     )
                 )
-            )),
-            loading = false.wrapInState(),
+            )).collectAsLazyPagingItems(),
+            loading = true.wrapInState(),
             onSearchEnter = {},
             onEntryChanged = {}
         )
     )
 }
-
