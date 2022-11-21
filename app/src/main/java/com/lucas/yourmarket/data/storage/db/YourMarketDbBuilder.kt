@@ -8,6 +8,7 @@ fun provideDatabase(context: Context): YourMarketDb {
         context.applicationContext,
         YourMarketDb::class.java,
         YourMarketDb.DATABASE_NAME
-    ).fallbackToDestructiveMigration()
+    )
+        .fallbackToDestructiveMigration()
         .build()
 }

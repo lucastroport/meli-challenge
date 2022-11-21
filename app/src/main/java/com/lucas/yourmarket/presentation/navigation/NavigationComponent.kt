@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.lucas.yourmarket.presentation.screens.home.HomeRoute
 import com.lucas.yourmarket.presentation.screens.splash.SplashRoute
 
 @Composable
@@ -19,5 +20,6 @@ fun NavigationComponent(
         modifier = Modifier.padding(paddingValues)
     ) {
         SplashRoute.composable(this, navHostController)
+        HomeRoute.composable(this, navHostController)
     }
 }

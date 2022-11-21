@@ -32,7 +32,7 @@ data class Product(
     val _shipping: Shipping,
     @ColumnInfo(name = FIELD_PICTURES)
     @SerializedName(FIELD_PICTURES)
-    val pictures: List<Picture> = emptyList(),
+    private val _pictures: List<Picture>?,
     @ColumnInfo(name = FIELD_SELLER_ID)
     @SerializedName(FIELD_SELLER_ID)
     val sellerId: Long?,
@@ -74,12 +74,14 @@ data class Product(
     val freeShipping: Boolean?
         get() = _shipping.freeShipping
 
+    val pictures: List<Picture>
+        get() = _pictures ?: emptyList()
+
     override fun getEntityName(): String = TABLE_NAME
 
     override fun mandatoryFields(): Map<String, Any?> = mapOf(
         Pair(FIELD_ID, id),
         Pair(FIELD_TITLE, title),
-        Pair(FIELD_PRICE, price),
-        Pair(FIELD_SELLER_ID, sellerId)
+        Pair(FIELD_PRICE, price)
     )
 }

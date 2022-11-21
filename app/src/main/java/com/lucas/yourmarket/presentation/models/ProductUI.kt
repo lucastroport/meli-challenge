@@ -1,7 +1,7 @@
 package com.lucas.yourmarket.presentation.models
 
 data class ProductUI(
-    val id: Long,
+    val id: String,
     val name: String? = null,
     val price: String? = null,
     val hasWarranty: Boolean? = false,

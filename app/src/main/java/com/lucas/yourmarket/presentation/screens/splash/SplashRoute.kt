@@ -2,7 +2,6 @@ package com.lucas.yourmarket.presentation.screens.splash
 
 import androidx.compose.runtime.Composable
 import com.lucas.yourmarket.presentation.navigation.NavRoute
-import com.lucas.yourmarket.presentation.ui.screens.splash.SplashScreenContent
 import org.koin.androidx.compose.koinViewModel
 
 object SplashRoute : NavRoute<SplashViewModel> {

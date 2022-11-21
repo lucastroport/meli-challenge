@@ -23,9 +23,9 @@ import com.lucas.yourmarket.R
 import com.lucas.yourmarket.presentation.ui.theme.YourMarketColor
 
 data class ProductItemCardState(
-    val key: Long?,
+    val key: String,
     val name: String?,
-    val onCardClicked: (Long) -> Unit = {},
+    val onCardClicked: (String) -> Unit = {},
     val price: String? = null,
     val hasFreeShipping: Boolean? = null,
     val thumbnailUrl: String? = null
@@ -39,7 +39,7 @@ fun ProductItemCard(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .clickable { state.onCardClicked },
+            .clickable { state.onCardClicked.invoke(state.key) },
         elevation = Dimens.grid_0_25,
     ) {
         Row(
@@ -108,7 +108,7 @@ fun ProductItemCardPreview() {
     ProductItemCard(state =
         ProductItemCardState(
             thumbnailUrl = "https://example.jpg",
-            key = 1L,
+            key = "CODE",
             name = "Apple Iphone 13 (128 GB) - Midnight Blue",
             onCardClicked = {},
             price = "U\$S 1.090",

@@ -29,5 +29,5 @@ interface ProductDao {
     suspend fun getById(id: String): ProductWithCurrencyQuery?
 
     @Query("SELECT t1.*, t2.symbol as currency FROM ${Product.TABLE_NAME} t1 LEFT JOIN ${Currency.TABLE_NAME} t2 ON t1.${Product.FIELD_CURRENCY_ID}=t2.${Currency.FIELD_ID}")
-    fun getPagingSource(): PagingSource<Int, ProductWithCurrencyQuery>?
+    fun getPagingSource(): PagingSource<Int, ProductWithCurrencyQuery>
 }

@@ -10,5 +10,5 @@ interface ProductLocalDatastore {
     suspend fun clearAllProducts()
     suspend fun updateProduct(product: Product)
     suspend fun getProductById(id: String): ProductWithCurrencyQuery?
-    suspend fun getProducts(): PagingSource<Int, ProductWithCurrencyQuery>?
+    fun getProducts(): PagingSource<Int, ProductWithCurrencyQuery>
 }
