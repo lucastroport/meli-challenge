@@ -10,10 +10,12 @@ class Converters {
 
     @TypeConverter
     fun fromString(value: String?): List<Picture> {
-        val listType: Type = object : TypeToken<List<Picture>?>() {
-
-        }.type
-        return Gson().fromJson(value, listType)
+        return if (value != null) {
+            val listType: Type = object : TypeToken<List<Picture>?>() {}.type
+            Gson().fromJson(value, listType)
+        } else {
+            emptyList()
+        }
     }
 
     @TypeConverter

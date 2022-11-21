@@ -61,12 +61,6 @@ class ProductLocalDatastoreImpl(
         }
     }
 
-    override suspend fun getProducts(): PagingSource<Int, ProductWithCurrencyQuery>? {
-        return try {
-            productDao.getPagingSource()
-        } catch (e: Exception) {
-            Log.e(CLASS_TAG, Log.getStackTraceString(e))
-            null
-        }
-    }
+    override fun getProducts(): PagingSource<Int, ProductWithCurrencyQuery> = productDao.getPagingSource()
+
 }

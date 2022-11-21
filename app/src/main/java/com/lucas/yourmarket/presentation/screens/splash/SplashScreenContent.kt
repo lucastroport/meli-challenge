@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.presentation.ui.screens.splash
+package com.lucas.yourmarket.presentation.screens.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

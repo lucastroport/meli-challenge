@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,6 +13,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.lucas.yourmarket.presentation.ui.gutterPadding
 import com.lucas.yourmarket.presentation.ui.theme.Dimens
 import com.lucas.yourmarket.presentation.ui.theme.YourMarketColor
@@ -22,12 +25,19 @@ import com.lucas.yourmarket.presentation.models.ProductUI
 import com.lucas.yourmarket.presentation.ui.helpers.wrapInState
 import com.lucas.yourmarket.presentation.ui.screenUtils.*
 import com.lucas.yourmarket.presentation.ui.theme.YourMarketTypography
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOf
 
 data class HomeScreenState(
+    val onSearchEnter: () -> Unit,
     val searchInput: State<String?>,
     val loading: State<Boolean?>,
-    val onItemClicked: (Long) -> Unit = {},
-    val products: MutableState<List<ProductUI>?> = mutableStateOf(mutableStateListOf())
+    val onEntryChanged: (String) -> Unit,
+    val onItemClicked: (String) -> Unit = {},
+    val products: MutableStateFlow<PagingData<ProductUI>> = MutableStateFlow(PagingData.from(
+        emptyList()
+    ))
 )
 
 @Composable
@@ -46,30 +56,28 @@ fun HomeScreenContent(
             HeaderItem()
             SearchBar(
                 input = state.searchInput.value,
-                onSearchPressed = { },
-                onInputChange = { }
+                onSearchPressed = state.onSearchEnter,
+                onInputChange = state.onEntryChanged
             )
         }
 
-        state.products.value?.let { products ->
-            Column(
-                modifier = Modifier.background(color = Color.White)
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(bottom = Dimens.grid_2, top = Dimens.grid_2)
-                        .fillMaxWidth()
-                        .gutterPadding(),
-                    text = stringResource(id = R.string.search_results_label),
-                    style = YourMarketTypography.subtitle2
+        Column(
+            modifier = Modifier.background(color = Color.White)
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(bottom = Dimens.grid_2, top = Dimens.grid_2)
+                    .fillMaxWidth()
+                    .gutterPadding(),
+                text = stringResource(id = R.string.search_results_label),
+                style = YourMarketTypography.subtitle2
+            )
+            state.loading.value?.let { loading ->
+                SearchContent(
+                    items = state.products.collectAsLazyPagingItems(),
+                    onItemClicked = state.onItemClicked,
+                    isLoading = loading
                 )
-                state.loading.value?.let { loading ->
-                    SearchContent(
-                        items = products,
-                        onItemClicked = state.onItemClicked,
-                        isLoading = loading
-                    )
-                }
             }
         }
     }
@@ -91,8 +99,8 @@ fun HeaderItem() {
 
 @Composable
 fun SearchContent(
-    items: List<ProductUI>,
-    onItemClicked: (Long) -> Unit,
+    items: LazyPagingItems<ProductUI>,
+    onItemClicked: (String) -> Unit,
     isLoading: Boolean
 ) {
     LazyColumn(
@@ -116,16 +124,18 @@ fun SearchContent(
                 items(
                     items = items
                 ) { product ->
-                    ProductItemCard(state =
-                        ProductItemCardState(
-                            name = product.name,
-                            key = product.id,
-                            onCardClicked = onItemClicked,
-                            price = "${product.currencySymbol} ${product.price}",
-                            hasFreeShipping = product.isFreeShipping,
-                            thumbnailUrl = product.imageThumbnailUrl
+                    product?.let {
+                        ProductItemCard(state =
+                            ProductItemCardState(
+                                name = it.name,
+                                key = it.id,
+                                onCardClicked = { productId -> onItemClicked(productId) },
+                                price = "${it.currencySymbol} ${it.price}",
+                                hasFreeShipping = it.isFreeShipping,
+                                thumbnailUrl = it.imageThumbnailUrl
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
@@ -139,17 +149,22 @@ fun HomeScreenPreview() {
     HomeScreenContent(state =
         HomeScreenState(
             searchInput = "".wrapInState(),
-            products = mutableListOf(
-                ProductUI(
-                    id = 1L,
-                    name = "Piano Digital Artesia Performer Black",
-                    price = "379",
-                    currencySymbol = "U\$S",
-                    imageThumbnailUrl = "someUrl",
-                    isFreeShipping = true
+            products = MutableStateFlow(PagingData.from(
+                listOf(
+                    ProductUI(
+                        id = "CODE",
+                        name = "Piano Digital Artesia Performer Black",
+                        price = "379",
+                        currencySymbol = "U\$S",
+                        imageThumbnailUrl = "someUrl",
+                        isFreeShipping = true
+                    )
                 )
-            ).wrapInState(),
-            loading = false.wrapInState()
+            )),
+            loading = false.wrapInState(),
+            onSearchEnter = {},
+            onEntryChanged = {}
         )
     )
 }
+

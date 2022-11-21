@@ -38,7 +38,7 @@ import com.lucas.yourmarket.presentation.ui.theme.placeHolderHint
 fun SearchBar(
     input: String?,
     onSearchPressed: () -> Unit,
-    onInputChange: (String) -> Unit
+    onInputChange: (String) -> Unit = {}
 ) {
     val isTextFieldFocused: Boolean by remember { mutableStateOf(false) }
     Row(

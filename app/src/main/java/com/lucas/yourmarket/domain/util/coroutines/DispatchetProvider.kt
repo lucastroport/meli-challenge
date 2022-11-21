@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.presentation.util.coroutines
+package com.lucas.yourmarket.domain.util.coroutines
 
 import kotlinx.coroutines.CoroutineDispatcher
 
