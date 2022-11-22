@@ -20,10 +20,10 @@ data class User(
     val nickname: String?,
     @Embedded
     @SerializedName(FIELD_ADDRESS)
-    val address: Address,
+    val address: Address?,
     @Embedded
     @SerializedName(FIELD_SELLER_REPUTATION)
-    val sellerReputation: SellerReputation
+    val sellerReputation: SellerReputation?
 
 ) : Parcelable, BaseModel() {
 
@@ -33,6 +33,8 @@ data class User(
         internal const val FIELD_NICKNAME = "nickname"
         internal const val FIELD_ADDRESS = "address"
         internal const val FIELD_SELLER_REPUTATION = "seller_reputation"
+
+
     }
 
     override fun getEntityName(): String = TABLE_NAME

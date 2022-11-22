@@ -1,6 +1,8 @@
 package com.lucas.yourmarket.presentation.navigation
 
 import android.util.Log
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -10,6 +12,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.lucas.yourmarket.presentation.ui.screenUtils.WithTopAppBar
 
 /**
  * A route the app can navigate to
@@ -42,7 +45,8 @@ interface NavRoute<T : RouteNavigator> {
      */
     fun composable(
         builder: NavGraphBuilder,
-        navHostController: NavHostController
+        navHostController: NavHostController,
+        includeTopAppBar: Boolean = false
     ) {
         builder.composable(route, getArguments()) {
             val viewModel = viewModel()
@@ -52,8 +56,15 @@ interface NavRoute<T : RouteNavigator> {
                 Log.d(TAG_NAV_ROUTE, "${this@NavRoute} updateNavigationState to $viewStateAsState")
                 updateNavigationState(navHostController, viewStateAsState, viewModel::onNavigated)
             }
-
-            Content(viewModel)
+            if (includeTopAppBar) {
+                WithTopAppBar(
+                    navHostController = navHostController
+                ) {
+                    Content(viewModel = viewModel)
+                }
+            } else {
+                Content(viewModel)
+            }
         }
     }
 

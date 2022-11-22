@@ -1,26 +1,24 @@
 package com.lucas.yourmarket.presentation.converters
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import com.lucas.yourmarket.presentation.screens.detail.ProductDetailState
 import com.lucas.yourmarket.presentation.screens.detail.ProductDetailViewModel
-import com.lucas.yourmarket.presentation.ui.helpers.wrapInState
 
 @Composable
 fun ProductDetailViewModel.toState() = ProductDetailState(
-    imagesUrls = mutableListOf(
-        "url1","url2"
-    ).wrapInState(),
-    price = "1.115".wrapInState(),
-    currencySymbol = "U\$S".wrapInState(),
-    hasWarranty = true.wrapInState(),
-    warranty = "Factory Warranty: 12 months".wrapInState(),
-    sellerLocation = "Villa Biarritz, Montevideo".wrapInState(),
-    sellerName = "SHOP_MERCADOUY".wrapInState(),
-    productCondition = "New".wrapInState(),
-    isPlatinumUser = true.wrapInState(),
-    reputation = "Very Good".wrapInState(),
-    imageThumbnailUrl = "thumbnailUrl".wrapInState(),
-    isFreeShipping = true.wrapInState(),
-    name = "Apple Iphone 13 (128 GB) - Midnight Blue".wrapInState(),
-    soldQuantity = 10.wrapInState()
+    loading = fullScreenLoading.observeAsState(),
+    imagesUrls = imagesUrls.observeAsState(),
+    price = price.observeAsState(),
+    currencySymbol = currencySymbol.observeAsState(),
+    hasWarranty = hasWarranty.observeAsState(),
+    warranty = warranty.observeAsState(),
+    sellerLocation = sellerLocation.observeAsState(),
+    sellerName = sellerName.observeAsState(),
+    productCondition = productCondition.observeAsState(),
+    isPlatinumUser = isPlatinumUser.observeAsState(),
+    reputation = reputation.observeAsState(),
+    isFreeShipping = isFreeShipping.observeAsState(),
+    name = name.observeAsState(),
+    soldQuantity = soldQuantity.observeAsState()
 )
