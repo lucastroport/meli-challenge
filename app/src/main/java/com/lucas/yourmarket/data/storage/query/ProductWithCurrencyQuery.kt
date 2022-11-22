@@ -21,7 +21,9 @@ data class ProductWithCurrencyQuery(
     @ColumnInfo(name = Shipping.FIELD_FREE_SHIPPING)
     val freeShipping: Boolean?,
     @ColumnInfo(name = Product.FIELD_SELLER_ID)
-    val sellerId: Long?
+    val sellerId: Long?,
+    @ColumnInfo(name = Product.FIELD_SOLD_QUANTITY)
+    val soldQuantity: Int?
 ): Parcelable, BaseModel() {
 
     override fun getEntityName(): String = ENTITY_NAME

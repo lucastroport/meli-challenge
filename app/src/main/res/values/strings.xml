@@ -9,4 +9,14 @@
     <string name="reputation_label">Reputation</string>
     <string name="platinum_label">MercadoLíder Platinum</string>
     <string name="platinum_description">One of the bests in the site!</string>
+    <string name="generic_error_message">Due to a technical issue, an error occurred. Please try again later.</string>
+    <string name="generic_error_title">An Error Occurred</string>
+    <string name="network_error_title">Network Error</string>
+    <string name="network_error_message">Services are unavailable, verify your connection.</string>
+    <string name="user_reputation_0">No Reputation</string>
+    <string name="user_reputation_1">Low Reputation</string>
+    <string name="user_reputation_2">Mid Low Reputation</string>
+    <string name="user_reputation_3">Mid Reputation</string>
+    <string name="user_reputation_4">Mid High Reputation</string>
+    <string name="user_reputation_5">High Reputation</string>
 </resources>

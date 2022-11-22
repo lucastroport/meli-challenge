@@ -11,7 +11,7 @@ import com.lucas.yourmarket.presentation.ui.helpers.wrapInState
 @Composable
 fun HomeViewModel.toState() = HomeScreenState(
     searchInput = searchField.observeAsState(""),
-    loading = spinner.observeAsState(initial = false),
+    loading = fullScreenLoading.observeAsState(initial = false),
     onItemClicked = ::onItemClicked,
     onSearchEnter = ::onSearchEnter,
     onEntryChanged = { searchField.value = it },

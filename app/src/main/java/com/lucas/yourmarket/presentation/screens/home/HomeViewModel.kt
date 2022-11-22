@@ -19,8 +19,7 @@ class HomeViewModel(
     private val routeNavigator: RouteNavigator
 ) : BaseViewModel(),
     RouteNavigator by routeNavigator,
-    RemoteMediatorCallback
-{
+    RemoteMediatorCallback {
 
     companion object {
         private val CLASS_TAG = HomeViewModel::class.qualifiedName
@@ -34,9 +33,9 @@ class HomeViewModel(
     private val productLocalDatastore: ProductLocalDatastore by inject()
 
     // UI
-    val products: MutableStateFlow<PagingData<ProductUI>> = MutableStateFlow(PagingData.from(emptyList()))
+    val products: MutableStateFlow<PagingData<ProductUI>> =
+        MutableStateFlow(PagingData.from(emptyList()))
     val searchField = MutableLiveData("")
-    val spinner = MutableLiveData(false)
 
     // Callback
     private var callback: RemoteMediatorCallback? = null
@@ -49,7 +48,7 @@ class HomeViewModel(
         searchField.value?.trim()?.let { input ->
             if (input.isNotEmpty()) {
                 launchIO {
-                    withLoadingSpinner(spinner = spinner) {
+                    withLoadingSpinner {
                         callback = this@HomeViewModel
                         clearStorageUseCase.execute()
                         Pager(
@@ -67,7 +66,7 @@ class HomeViewModel(
                             .flow
                             .cachedIn(viewModelScope)
                             .collectLatest {
-                                spinner.postValue(false)
+                                fullScreenLoading.postValue(false)
                                 products.emit(it.map { productWithQuery ->
                                     ProductUI(
                                         id = productWithQuery.id,
