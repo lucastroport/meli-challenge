@@ -15,5 +15,7 @@ fun HomeViewModel.toState() = HomeScreenState(
     onItemClicked = ::onItemClicked,
     onSearchEnter = ::onSearchEnter,
     onEntryChanged = { searchField.value = it },
-    products = products.collectAsLazyPagingItems()
+    products = products.collectAsLazyPagingItems(),
+    noResults = noResultsEvent.observeAsState(),
+    isFirstLoaded = isFirstLoaded.observeAsState()
 )

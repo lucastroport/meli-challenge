@@ -33,7 +33,9 @@ data class HomeScreenState(
     val loading: State<Boolean?>,
     val onEntryChanged: (String) -> Unit,
     val onItemClicked: (String) -> Unit = {},
-    val products: LazyPagingItems<ProductUI>
+    val products: LazyPagingItems<ProductUI>,
+    val noResults: State<Boolean?>,
+    val isFirstLoaded: State<Boolean?>
 )
 
 @Composable
@@ -60,12 +62,21 @@ fun HomeScreenContent(
         Column(
             modifier = Modifier.background(color = Color.White)
         ) {
-            state.loading.value?.let { loading ->
-                SearchContent(
-                    items = state.products,
-                    onItemClicked = state.onItemClicked,
-                    isLoading = loading
-                )
+            state.isFirstLoaded.value?.let { firstLoad ->
+                if (firstLoad) {
+                    ScreenResult(resultState = ResultState.TYPE_SOMETHING)
+                } else {
+                    state.loading.value?.let { loading ->
+                        state.noResults.value?.let { noResults ->
+                            SearchContent(
+                                items = state.products,
+                                onItemClicked = state.onItemClicked,
+                                isLoading = loading,
+                                noResults = noResults
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -89,67 +100,72 @@ fun HeaderItem() {
 fun SearchContent(
     items: LazyPagingItems<ProductUI>?,
     onItemClicked: (String) -> Unit,
-    isLoading: Boolean
+    isLoading: Boolean,
+    noResults: Boolean
 ) {
-    val foundResults = remember { mutableStateOf(false) }
-    if (foundResults.value) {
-        Text(
+    if(!noResults) {
+        val foundResults = remember { mutableStateOf(false) }
+        if (foundResults.value) {
+            Text(
+                modifier = Modifier
+                    .padding(bottom = Dimens.grid_2, top = Dimens.grid_2)
+                    .fillMaxWidth()
+                    .gutterPadding(),
+                text = stringResource(id = R.string.search_results_label),
+                style = YourMarketTypography.subtitle2
+            )
+        }
+        LazyColumn(
             modifier = Modifier
-                .padding(bottom = Dimens.grid_2, top = Dimens.grid_2)
-                .fillMaxWidth()
-                .gutterPadding(),
-            text = stringResource(id = R.string.search_results_label),
-            style = YourMarketTypography.subtitle2
-        )
-    }
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White)
-            .padding(top =
-                if (foundResults.value)
-                    Dimens.grid_0
+                .fillMaxSize()
+                .background(color = Color.White)
+                .padding(
+                    top =
+                    if (foundResults.value)
+                        Dimens.grid_0
+                    else
+                        Dimens.grid_2
+                ),
+            verticalArrangement =
+                if (isLoading)
+                    Arrangement.spacedBy(Dimens.grid_2)
                 else
-                    Dimens.grid_2
-            ),
-        verticalArrangement =
-            if (isLoading)
-                Arrangement.spacedBy(Dimens.grid_2)
-            else
-                Arrangement.spacedBy(Dimens.grid_0)
-    ) {
-        isLoading.let { loading ->
-            if (loading) {
-                repeat(5) {
-                    item {
-                        LoadingShimmerEffect()
+                    Arrangement.spacedBy(Dimens.grid_0)
+        ) {
+            isLoading.let { loading ->
+                if (loading) {
+                    repeat(5) {
+                        item {
+                            LoadingShimmerEffect()
+                        }
                     }
-                }
-            } else {
-                items?.let { products ->
-                    foundResults.value = products.itemCount > 0
-                    items(
-                        items = products
-                    ) { product ->
-                        product?.let {
-                            ProductItemCard(state =
-                                ProductItemCardState(
-                                    name = it.name,
-                                    key = it.id,
-                                    onCardClicked = { productId -> onItemClicked(productId) },
-                                    price = "${it.currencySymbol} ${it.price}",
-                                    hasFreeShipping = it.isFreeShipping,
-                                    thumbnailUrl = it.imageThumbnailUrl
+                } else {
+                    items?.let { products ->
+                        foundResults.value = products.itemCount > 0
+                        items(
+                            items = products
+                        ) { product ->
+                            product?.let {
+                                ProductItemCard(state =
+                                    ProductItemCardState(
+                                        name = it.name,
+                                        key = it.id,
+                                        onCardClicked = { productId -> onItemClicked(productId) },
+                                        price = "${it.currencySymbol} ${it.price}",
+                                        hasFreeShipping = it.isFreeShipping,
+                                        thumbnailUrl = it.imageThumbnailUrl
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
                 }
             }
         }
+    } else {
+        ScreenResult(ResultState.NO_RESULTS)
     }
 }
-
 
 @Preview(showSystemUi = true)
 @Composable
@@ -172,7 +188,9 @@ fun HomeScreenPreview() {
             )).collectAsLazyPagingItems(),
             loading = true.wrapInState(),
             onSearchEnter = {},
-            onEntryChanged = {}
+            onEntryChanged = {},
+            noResults = false.wrapInState(),
+            isFirstLoaded = true.wrapInState()
         )
     )
 }

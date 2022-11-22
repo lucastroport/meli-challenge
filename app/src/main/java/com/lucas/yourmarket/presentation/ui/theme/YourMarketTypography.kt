@@ -158,12 +158,6 @@ val Typography.hintTextDarkGray50
         fontWeight = FontWeight.SemiBold
     )
 
-val Typography.hintTextDarkGray
-    @Composable get() = YourMarketTypography.body1.copy(
-        color = YourMarketColor.DarkGray,
-        fontWeight = FontWeight.SemiBold
-    )
-
 val Typography.subtitle2SemiBold
     @Composable get() = subtitle2.copy(
         fontWeight = FontWeight.SemiBold
@@ -174,54 +168,6 @@ val Typography.subtitle2Normal
         fontWeight = FontWeight.Normal
     )
 
-val Typography.buttonNormal
-    @Composable get() = button.copy(
-        fontWeight = FontWeight.Normal
-    )
-
-val Typography.buttonSemibold
-    @Composable get() = button.copy(
-        fontWeight = FontWeight.SemiBold
-    )
-
-val Typography.subtitle1SizeFifteen
-    @Composable get() = subtitle1.copy(
-        fontSize = 15.sp
-    )
-
-val Typography.subtitle1Normal
-    @Composable get() = subtitle1.copy(
-        fontWeight = FontWeight.Normal
-    )
-
-val Typography.amountPlaceHolder
-    @Composable get() = h4.copy(
-        fontSize = 27.sp,
-        color = YourMarketColor.DarkGray.copy(alpha = .5f)
-    )
-
-val Typography.amountTextStyle
-    @Composable get() = h4.copy(
-        fontSize = 27.sp,
-        color = YourMarketColor.DarkGray,
-        textAlign = TextAlign.End
-    )
-
-val Typography.disclaimerStyle
-    @Composable get() = body2.copy(
-        color = YourMarketColor.DarkGray,
-        fontStyle = FontStyle.Italic
-    )
-
-// Type extensions
-@Suppress("unused")
-fun Typography.embeddedButton() = TextStyle(
-    fontSize = 17.sp,
-    fontFamily = OpenSans,
-    fontWeight = FontWeight.Normal,
-    textAlign = TextAlign.Center
-)
-
 @Suppress("unused")
 fun Typography.instructionStyle() = TextStyle(
     fontSize = 15.sp,
@@ -230,17 +176,10 @@ fun Typography.instructionStyle() = TextStyle(
     color = YourMarketColor.Stone
 )
 
-fun Typography.tileTitle() = TextStyle(
-    fontSize = 18.sp,
-    fontFamily = OpenSans,
-    lineHeight = 25.sp,
-    color = Color.White
-)
-
-fun Typography.portfolioValue() = TextStyle(
-    fontSize = 39.sp,
+fun Typography.screenResult() = TextStyle(
+    fontSize = 25.sp,
     fontWeight = FontWeight.SemiBold,
-    fontFamily = OpenSans,
+    fontFamily = PtSans,
     lineHeight = 54.sp,
-    color = YourMarketColor.DarkGray
+    color = YourMarketColor.LightGray
 )

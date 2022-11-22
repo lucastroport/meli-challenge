@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
+import com.hadilq.liveevent.LiveEvent
 import com.lucas.yourmarket.data.callback.RemoteMediatorCallback
 import com.lucas.yourmarket.data.paging.ProductRemoteMediator
 import com.lucas.yourmarket.data.storage.datastore.interfaces.ProductLocalDatastore
@@ -36,6 +37,10 @@ class HomeViewModel(
     val products: MutableStateFlow<PagingData<ProductUI>> =
         MutableStateFlow(PagingData.from(emptyList()))
     val searchField = MutableLiveData("")
+    val isFirstLoaded = MutableLiveData(true)
+
+    // Events
+    val noResultsEvent = LiveEvent<Boolean>()
 
     // Callback
     private var callback: RemoteMediatorCallback? = null
@@ -45,6 +50,8 @@ class HomeViewModel(
 
     @OptIn(ExperimentalPagingApi::class)
     fun onSearchEnter() {
+        isFirstLoaded.postValue(false)
+        noResultsEvent.postValue(false)
         searchField.value?.trim()?.let { input ->
             if (input.isNotEmpty()) {
                 launchIO {
@@ -89,7 +96,7 @@ class HomeViewModel(
     }
 
     override fun onEmptyResponse() {
-        Log.i(CLASS_TAG, "No results were found")
+        noResultsEvent.postValue(true)
     }
 
     override fun onErrorReceived() {

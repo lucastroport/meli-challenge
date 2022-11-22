@@ -19,4 +19,6 @@
     <string name="user_reputation_3">Mid Reputation</string>
     <string name="user_reputation_4">Mid High Reputation</string>
     <string name="user_reputation_5">High Reputation</string>
+    <string name="no_results_message">Sorry. No Results were found.</string>
+    <string name="type_something">Ready to search ? Start Typing…</string>
 </resources>
