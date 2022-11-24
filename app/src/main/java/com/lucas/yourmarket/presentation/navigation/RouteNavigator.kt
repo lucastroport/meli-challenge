@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface RouteNavigator {
     fun onNavigated(state: NavigationState)
     fun navigateUp()
-    fun popToRoute(route: String)
+    fun popToRoute(destination: String, popUpTo: String, inclusive: Boolean)
     fun navigateToRoute(route: String)
 
     val navigationState: StateFlow<NavigationState>
@@ -25,13 +25,19 @@ class RouteNavigatorImplementation : RouteNavigator {
         navigationState.compareAndSet(state, NavigationState.Idle)
     }
 
-    override fun popToRoute(route: String) = navigate(NavigationState.PopToRoute(route))
+    override fun popToRoute(destination: String, popUpTo: String, inclusive: Boolean) = navigate(
+        NavigationState.PopToRoute(
+            destination = destination,
+            popUpTo = popUpTo,
+            inclusive = inclusive
+        )
+    )
 
     override fun navigateUp() = navigate(NavigationState.NavigateUp())
 
     override fun navigateToRoute(route: String) = navigate(NavigationState.NavigateToRoute(route))
 
-    fun navigate(state: NavigationState) {
+    private fun navigate(state: NavigationState) {
         navigationState.value = state
     }
 }

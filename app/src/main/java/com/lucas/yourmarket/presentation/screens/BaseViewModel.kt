@@ -1,6 +1,7 @@
 package com.lucas.yourmarket.presentation.screens
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,14 +15,21 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import com.lucas.yourmarket.R
+import com.lucas.yourmarket.presentation.navigation.RouteNavigator
+import com.lucas.yourmarket.presentation.screens.dialog.DialogRoute
+import kotlinx.coroutines.delay
 
 abstract class BaseViewModel : ViewModel(), KoinComponent {
+
+    companion object {
+        private const val TAG_UI_ERROR = "ERROR_UI"
+    }
 
     // DI
     private val dispatcherProvider: DispatcherProvider by inject()
 
     // Convenience extension function for LiveEvent
-    fun LiveEvent<Unit>.trigger() = postValue(Unit)
+    private fun LiveEvent<Unit>.trigger() = postValue(Unit)
     protected fun LiveData<Unit>.trigger() = (this as? LiveEvent<Unit>)?.trigger()
 
     // Helper functions to avoid needing downcast declarations for public MutableLiveData
@@ -33,8 +41,7 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
 
     //  Loading Spinner
     val fullScreenLoading = MutableLiveData(false)
-    val localLoading = MutableLiveData(false)
-    val showDialogEvent = LiveEvent<DialogUI>()
+    var uiCallback: UiCallback? = null
 
     // A different indicator can be provided to this wrapper so UI can implement local spinners when needed.
     //  Otherwise this will default to using above loading indicator (which blocks UI).
@@ -47,11 +54,6 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
         spinner.postValue(false)
     }
 
-    private fun showDialog(dialog: DialogUI) {
-        if (showDialogEvent.value == null) {
-            showDialogEvent.postValue(dialog)
-        }
-    }
     /**
      * Used to reduce boiler plate where calling a UseCase and we need generic error handling
      *
@@ -63,7 +65,7 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
     fun <T> Status<T>.handlingErrors(onSuccess: (Status.Success<T>) -> Unit) {
         when (val resp = this) {
             is Status.Success -> onSuccess(resp)
-            is Status.Failure -> handleError(resp)
+            is Status.Failure -> handleErrorUI(resp)
         }
     }
 
@@ -75,15 +77,41 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
      *   is Status.Failure -> handleError(resp)
      * }
      */
-    private fun handleError(error: Status.Failure?) {
+    private fun handleErrorUI(error: Status.Failure?) {
         val context: Context by inject()
-        if (error is Status.Failure) {
-            showDialog(
-                DialogUI(
-                    title = context.getString(R.string.generic_error_title),
-                    message = context.getString(R.string.generic_error_message)
-                )
-            )
+        when (error) {
+            is Status.Failure.GeneralFailure -> Log.e(TAG_UI_ERROR, error.message)
+            is Status.Failure.ExceptionFailure -> Log.getStackTraceString(error.e)
+            else -> Log.e(TAG_UI_ERROR, "Status Failure $error")
         }
+        uiCallback?.handleError(
+            DialogUI(
+                message = if (error is Status.Failure.GeneralFailure) error.message else context.getString(R.string.generic_error_message),
+                title = context.getString(R.string.generic_error_title),
+                primaryButtonText = context.getString(R.string.btn_accept_label)
+            )
+        )
     }
+
+    fun showRetryErrorDialog(
+        routeNavigator: RouteNavigator,
+        dialog: DialogUI? = null,
+        onRetry: () -> Unit
+    ) {
+        val context: Context by inject()
+        routeNavigator.navigateToRoute(
+            DialogRoute.show(
+                dialogMessage = dialog?.message
+                    ?: context.getString(R.string.error_fetching_product),
+                dialogTitle = dialog?.title ?: context.getString(R.string.generic_error_title),
+                onPrimaryClicked = onRetry,
+                primaryButtonText = context.getString(R.string.btn_retry_label)
+            )
+        )
+    }
+
+    interface UiCallback {
+        fun handleError(dialogInfo: DialogUI)
+    }
+
 }

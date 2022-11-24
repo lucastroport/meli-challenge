@@ -1,6 +1,9 @@
 package com.lucas.yourmarket.presentation.models
 
 data class DialogUI(
-    val title: String? = null,
-    val message: String? = null
+    val title: String?,
+    val message: String?,
+    val onPrimaryClicked: () -> Unit = {},
+    val onDismissedClicked: () -> Unit = {},
+    val primaryButtonText: String? = ""
 )

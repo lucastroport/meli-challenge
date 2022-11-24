@@ -7,9 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.lucas.yourmarket.presentation.screens.detail.ProductDetailRoute
+import com.lucas.yourmarket.presentation.screens.dialog.DialogRoute
 import com.lucas.yourmarket.presentation.screens.home.HomeRoute
 import com.lucas.yourmarket.presentation.screens.splash.SplashRoute
-import com.lucas.yourmarket.presentation.ui.screenUtils.WithTopAppBar
 
 @Composable
 fun NavigationComponent(
@@ -24,5 +24,6 @@ fun NavigationComponent(
         SplashRoute.composable(this, navHostController)
         HomeRoute.composable(this, navHostController)
         ProductDetailRoute.composable(this, navHostController, includeTopAppBar = true)
+        DialogRoute.dialog(this, navHostController)
     }
 }

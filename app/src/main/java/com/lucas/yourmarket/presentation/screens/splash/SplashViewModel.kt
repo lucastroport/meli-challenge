@@ -16,8 +16,11 @@ class SplashViewModel(
     init {
         launchIO {
             getCurrencies.execute()
-            navigateToRoute(HomeRoute.route)
+            popToRoute(
+                destination = HomeRoute.route,
+                popUpTo = SplashRoute.route,
+                inclusive = true
+            )
         }
     }
-
 }
