@@ -1,5 +1,6 @@
 package com.lucas.yourmarket.data.paging
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -12,6 +13,8 @@ import com.lucas.yourmarket.data.storage.query.ProductWithCurrencyQuery
 import com.lucas.yourmarket.domain.model.key.YourMarketRemoteKey
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import com.lucas.yourmarket.R
+import javax.net.ssl.SSLHandshakeException
 
 @ExperimentalPagingApi
 class ProductRemoteMediator(
@@ -95,7 +98,7 @@ class ProductRemoteMediator(
 
         } catch (e: Exception) {
             if (isFirstPage(loadType = loadType, currentPage = currentPage, state = state)) {
-                mediatorCallback?.onErrorReceived()
+                e.message?.let { mediatorCallback?.onErrorReceived(it) }
             }
             return MediatorResult.Error(e)
         }

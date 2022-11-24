@@ -10,6 +10,9 @@
     <string name="platinum_label">MercadoLíder Platinum</string>
     <string name="platinum_description">One of the bests in the site!</string>
     <string name="generic_error_message">Due to a technical issue, an error occurred. Please try again later.</string>
+    <string name="error_fetching_product">There\'s been an error fetching the product. </string>
+    <string name="error_search_results">There\'s been an error with your search</string>
+    <string name="error_server_connection">We can\'t reach our servers for the moment.</string>
     <string name="generic_error_title">An Error Occurred</string>
     <string name="network_error_title">Network Error</string>
     <string name="network_error_message">Services are unavailable, verify your connection.</string>
@@ -21,4 +24,6 @@
     <string name="user_reputation_5">High Reputation</string>
     <string name="no_results_message">Sorry. No Results were found.</string>
     <string name="type_something">Ready to search ? Start Typing…</string>
+    <string name="btn_accept_label">Accept</string>
+    <string name="btn_retry_label">Retry</string>
 </resources>

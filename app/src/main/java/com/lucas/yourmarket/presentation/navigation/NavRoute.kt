@@ -1,17 +1,17 @@
 package com.lucas.yourmarket.presentation.navigation
 
 import android.util.Log
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import com.lucas.yourmarket.presentation.ui.screenUtils.WithTopAppBar
 
 /**
@@ -68,6 +68,29 @@ interface NavRoute<T : RouteNavigator> {
         }
     }
 
+    fun dialog(
+        builder: NavGraphBuilder,
+        navHostController: NavHostController,
+    ) {
+        builder.dialog(
+            route,
+            getArguments(),
+            dialogProperties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false,
+            )
+        ) {
+            val viewModel = viewModel()
+            val viewStateAsState by viewModel.navigationState.collectAsState()
+
+            LaunchedEffect(viewStateAsState) {
+                Log.d(TAG_NAV_ROUTE, "${this@NavRoute} updateNavigationState to $viewStateAsState")
+                updateNavigationState(navHostController, viewStateAsState, viewModel::onNavigated)
+            }
+            Content(viewModel)
+        }
+    }
+
     /**
      * Navigates to viewState.
      */
@@ -82,7 +105,11 @@ interface NavRoute<T : RouteNavigator> {
                 onNavigated(navigationState)
             }
             is NavigationState.PopToRoute -> {
-                navHostController.popBackStack(navigationState.staticRoute, false)
+                navHostController.navigate(navigationState.destination) {
+                    popUpTo(navigationState.popUpTo) {
+                        inclusive = navigationState.inclusive
+                    }
+                }
                 onNavigated(navigationState)
             }
             is NavigationState.NavigateUp -> {

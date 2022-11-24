@@ -57,8 +57,9 @@ fun LoadingAnimation(
     val lastCircle = circleValues.size - 1
 
     Row(
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {

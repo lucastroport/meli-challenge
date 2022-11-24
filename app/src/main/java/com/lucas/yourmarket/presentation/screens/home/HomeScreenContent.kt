@@ -1,5 +1,6 @@
 package com.lucas.yourmarket.presentation.screens.home
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -84,15 +86,18 @@ fun HomeScreenContent(
 
 @Composable
 fun HeaderItem() {
-    Box(
-        modifier = Modifier
-            .size(100.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_splash_logo),
-            contentDescription = "logo"
-        )
+    val configuration = LocalConfiguration.current
+    if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        Box(
+            modifier = Modifier
+                .size(100.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_splash_logo),
+                contentDescription = "logo"
+            )
+        }
     }
 }
 

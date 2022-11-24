@@ -3,5 +3,5 @@ package com.lucas.yourmarket.data.callback
 interface RemoteMediatorCallback {
     suspend fun onRefreshReceived()
     fun onEmptyResponse()
-    fun onErrorReceived()
+    fun onErrorReceived(message: String?)
 }

@@ -56,16 +56,17 @@ fun ProductDetailScreenContent(
     val pagerState = rememberPagerState()
     val imageUrl = remember { mutableStateOf("") }
 
-    Column(
-        modifier = Modifier
-            .padding(top = Dimens.grid_3, bottom = Dimens.grid_2)
-            .fillMaxHeight()
-            .verticalScroll(rememberScrollState())
-    ){
-        state.loading.value?.let { loading ->
-            if (loading) {
-                LoadingAnimation()
-            } else {
+    val loading = state.loading.value ?: false
+    if (loading) {
+        LoadingAnimation()
+    } else {
+        Column(
+            modifier = Modifier
+                .padding(top = Dimens.grid_3, bottom = Dimens.grid_2)
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState())
+        ) {
+            state.loading.value?.let { loading ->
                 Column(
                     modifier = Modifier
                         .gutterPadding()
@@ -212,8 +213,8 @@ fun ProductDetailScreenContent(
                     isPlatinumUser = state.isPlatinumUser.value
                 )
             }
-            }
         }
+    }
 
 }
 
@@ -241,7 +242,7 @@ fun SellerInformation(
                 iconResId = R.drawable.ic_location
             )
         }
-        reputation?.let { 
+        reputation?.let {
             InfoItem(
                 title = stringResource(id = R.string.reputation_label),
                 description = it,
@@ -281,7 +282,7 @@ fun InfoItem(
                 modifier = Modifier
                     .padding(top = Dimens.grid_0_5)
                     .size(Dimens.grid_2),
-                painter = painterResource(id = iconResId), 
+                painter = painterResource(id = iconResId),
                 contentDescription = "",
             )
         }
@@ -310,10 +311,11 @@ fun InfoItem(
 fun ProductDetailScreenPreview(
 
 ) {
-    ProductDetailScreenContent(state =
+    ProductDetailScreenContent(
+        state =
         ProductDetailState(
             imagesUrls = mutableListOf(
-                "url1","url2"
+                "url1", "url2"
             ).wrapInState(),
             price = "1.115".wrapInState(),
             currencySymbol = "U\$S".wrapInState(),
