@@ -53,4 +53,4 @@ The dependencies will be download;
 
 # [Paging3](https://developer.android.com/topic/libraries/architecture/paging/v3-network-db) with compose architecture
 
-<img alt="paging3_compose" src="/readme/paging_compose_arch.gif">
+<img alt="paging3_compose" src="/readme/paging_compose_arch.png">
