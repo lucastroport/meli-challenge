@@ -21,10 +21,10 @@ The android app lets you:
 
 <img src="/readme/splash_sample.gif" align="left"
 width="200"
-    hspace="10" vspace="10">
-<img src="/readme/search_sample.gif" align="left"
+    hspace="10">
+<img src="/readme/search_sample.gif" align="center"
 width="200"
-    hspace="10" vspace="10">
-<img src="/readme/product_sample.gif" align="center"
+    hspace="10">
+<img src="/readme/product_sample.gif" align="right"
 width="200"
-    hspace="10" vspace="10">
+    hspace="10">
