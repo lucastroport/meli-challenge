@@ -1,15 +1,12 @@
 package com.lucas.yourmarket.presentation.ui.theme
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.material.Typography
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.lucas.yourmarket.R
 
@@ -25,11 +22,7 @@ val PtSans = FontFamily(
     Font(R.font.pt_sans_bold, FontWeight.Bold)
 )
 
-val SfPro = FontFamily(
-    Font(R.font.sfpro_display_semibold, FontWeight.SemiBold)
-)
-
-val YourMarketTypography = androidx.compose.material.Typography(
+val YourMarketTypography = Typography(
     // This is specific to the header in the Welcome Screen.
     h3 = TextStyle(
         fontFamily = PtSans,
@@ -39,13 +32,6 @@ val YourMarketTypography = androidx.compose.material.Typography(
         color = YourMarketColor.DarkGray,
     ),
 
-    // Used for keypad
-    h4 = TextStyle(
-        fontFamily = OpenSans,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 26.sp,
-        lineHeight = 35.sp,
-    ),
 
     // Used for non bold title on simple style screens
     h5 = TextStyle(
@@ -64,7 +50,6 @@ val YourMarketTypography = androidx.compose.material.Typography(
         lineHeight = 26.sp,
         color = YourMarketColor.DarkGray,
     ),
-
     // Corresponds to
     subtitle1 = TextStyle(
         fontFamily = OpenSans,
@@ -114,58 +99,14 @@ val YourMarketTypography = androidx.compose.material.Typography(
     )
 )
 
-val TextStyle.semibold
-    @Composable get() = this.copy(fontWeight = FontWeight.SemiBold)
-
-val TextStyle.bold
-    @Composable get() = this.copy(fontWeight = FontWeight.Bold)
-
-val Typography.error1
-    @Composable get() = YourMarketTypography.body1.copy(
-        color = MaterialTheme.colors.error
-    )
-
-val Typography.error2
-    @Composable get() = TextStyle(
-        fontFamily = OpenSans,
-        fontWeight = FontWeight.Normal,
-        fontSize = 15.sp,
-        lineHeight = 20.sp,
-        color = MaterialTheme.colors.error,
-    )
-
-val Typography.boxedText
-    @Composable get() = TextStyle(
-        fontFamily = SfPro,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 17.sp,
-        color = YourMarketColor.BlueGrey,
-    )
-
-val Typography.hintText
-    @Composable get() = YourMarketTypography.body1.copy(
-        color = YourMarketColor.Stone.copy(alpha = .5f)
+val Typography.subtitle2Normal
+    @Composable get() = subtitle2.copy(
+        fontWeight = FontWeight.Normal
     )
 
 val Typography.placeHolderHint
     @Composable get() = YourMarketTypography.body1.copy(
         color = YourMarketColor.DarkGray.copy(alpha = .5f),
-    )
-
-val Typography.hintTextDarkGray50
-    @Composable get() = YourMarketTypography.body1.copy(
-        color = YourMarketColor.DarkGray.copy(alpha = .5f),
-        fontWeight = FontWeight.SemiBold
-    )
-
-val Typography.subtitle2SemiBold
-    @Composable get() = subtitle2.copy(
-        fontWeight = FontWeight.SemiBold
-    )
-
-val Typography.subtitle2Normal
-    @Composable get() = subtitle2.copy(
-        fontWeight = FontWeight.Normal
     )
 
 @Suppress("unused")

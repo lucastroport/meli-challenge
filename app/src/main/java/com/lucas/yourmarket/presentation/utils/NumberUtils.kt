@@ -1,4 +1,4 @@
-package com.lucas.yourmarket.presentation.util
+package com.lucas.yourmarket.presentation.utils
 
 import java.math.BigDecimal
 import java.text.NumberFormat

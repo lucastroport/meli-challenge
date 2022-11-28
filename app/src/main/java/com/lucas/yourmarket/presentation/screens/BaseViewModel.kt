@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hadilq.liveevent.LiveEvent
 import com.lucas.yourmarket.domain.model.response.Status
 import com.lucas.yourmarket.domain.util.coroutines.DispatcherProvider
 import com.lucas.yourmarket.presentation.models.DialogUI
@@ -17,7 +16,6 @@ import org.koin.core.component.inject
 import com.lucas.yourmarket.R
 import com.lucas.yourmarket.presentation.navigation.RouteNavigator
 import com.lucas.yourmarket.presentation.screens.dialog.DialogRoute
-import kotlinx.coroutines.delay
 
 abstract class BaseViewModel : ViewModel(), KoinComponent {
 
@@ -27,10 +25,6 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
 
     // DI
     private val dispatcherProvider: DispatcherProvider by inject()
-
-    // Convenience extension function for LiveEvent
-    private fun LiveEvent<Unit>.trigger() = postValue(Unit)
-    protected fun LiveData<Unit>.trigger() = (this as? LiveEvent<Unit>)?.trigger()
 
     // Helper functions to avoid needing downcast declarations for public MutableLiveData
     protected fun <T> LiveData<T>.postValue(value: T?) = (this as? MutableLiveData<T>)?.postValue(value)
@@ -94,16 +88,15 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
     }
 
     fun showRetryErrorDialog(
-        routeNavigator: RouteNavigator,
-        dialog: DialogUI? = null,
+        routeNavigator: RouteNavigator?,
+        dialog: DialogUI?,
         onRetry: () -> Unit
     ) {
         val context: Context by inject()
-        routeNavigator.navigateToRoute(
+        routeNavigator?.navigateToRoute(
             DialogRoute.show(
-                dialogMessage = dialog?.message
-                    ?: context.getString(R.string.error_fetching_product),
                 dialogTitle = dialog?.title ?: context.getString(R.string.generic_error_title),
+                dialogMessage = dialog?.message ?: context.getString(R.string.generic_error_message),
                 onPrimaryClicked = onRetry,
                 primaryButtonText = context.getString(R.string.btn_retry_label)
             )
@@ -111,7 +104,6 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
     }
 
     interface UiCallback {
-        fun handleError(dialogInfo: DialogUI)
+        fun handleError(dialogInfo: DialogUI?)
     }
-
 }

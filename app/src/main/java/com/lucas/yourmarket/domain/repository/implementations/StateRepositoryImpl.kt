@@ -13,6 +13,7 @@ class StateRepositoryImpl(
         val response = stateRemoteDatastore.getStateById(stateId)
         response?.let {
             stateLocalDatastore.storeState(it)
+            return it
         }
         return stateLocalDatastore.getStateById(stateId)
     }

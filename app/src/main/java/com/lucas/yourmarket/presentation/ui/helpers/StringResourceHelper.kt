@@ -12,8 +12,6 @@ interface ResourceEnum {
 sealed class StringResourceHelper {
     abstract fun produce(): String?
 
-    var formatArgs: Array<Any>? = null
-
     interface StringEnum : ResourceEnum {
         val resId: Int
 
@@ -26,23 +24,6 @@ sealed class StringResourceHelper {
     data class EnumHelper(private val stringEnum: StringEnum) : StringResourceHelper(),
         KoinComponent {
         private val context: Context by inject()
-        override fun produce() = formatArgs?.let { argList ->
-            context.getString(stringEnum.resourceId, *getStringParams(argList))
-        } ?: run {
-            context.getString(stringEnum.resourceId)
-        }
-
-        private fun getStringParams(args: Array<Any>): Array<String> =
-            args.map {
-                try {
-                    when (it) {
-                        is StringEnum -> context.getString(it.resourceId)
-                        is StringResourceHelper -> it.produce() ?: ""
-                        else -> it.toString()
-                    }
-                } catch (e: ClassCastException) {
-                    it.toString()
-                }
-            }.toTypedArray()
+        override fun produce() = context.getString(stringEnum.resourceId)
     }
 }

@@ -1,8 +1,10 @@
 package com.lucas.yourmarket.presentation.screens.detail
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.lucas.yourmarket.R
 import com.lucas.yourmarket.domain.usecases.ProductUseCase
 import com.lucas.yourmarket.domain.usecases.StateUseCase
 import com.lucas.yourmarket.domain.usecases.UserUseCase
@@ -16,7 +18,7 @@ import com.lucas.yourmarket.domain.model.User
 import com.lucas.yourmarket.domain.model.response.Status
 import com.lucas.yourmarket.presentation.models.DialogUI
 import com.lucas.yourmarket.presentation.models.UserReputationLevels
-import com.lucas.yourmarket.presentation.util.toCurrency
+import com.lucas.yourmarket.presentation.utils.toCurrency
 import kotlinx.coroutines.delay
 
 class ProductDetailViewModel(
@@ -33,19 +35,19 @@ class ProductDetailViewModel(
     private val productId = ProductDetailRoute.getIndexFrom(savedStateHandle)
 
     // UI
-    val name: LiveData<String?> = MutableLiveData("")
-    val price: LiveData<String?> = MutableLiveData("")
-    val hasWarranty: LiveData<Boolean?> = MutableLiveData(false)
-    val warranty: LiveData<String?> = MutableLiveData("")
+    val name = MutableLiveData("")
+    val price = MutableLiveData("")
+    val hasWarranty = MutableLiveData(false)
+    val warranty = MutableLiveData("")
     val imagesUrls: LiveData<List<String>?> = MutableLiveData(listOf())
-    val isFreeShipping: LiveData<Boolean?> = MutableLiveData(false)
-    val sellerName: LiveData<String?> = MutableLiveData("")
-    val currencySymbol: LiveData<String?> = MutableLiveData("")
-    val sellerLocation: LiveData<String?> = MutableLiveData("")
-    val isPlatinumUser: LiveData<Boolean?> = MutableLiveData(false)
-    val reputation: LiveData<String?> = MutableLiveData("")
-    val productCondition: LiveData<String?> = MutableLiveData("")
-    val soldQuantity: LiveData<Int?> = MutableLiveData(0)
+    val isFreeShipping = MutableLiveData(false)
+    val sellerName = MutableLiveData("")
+    val currencySymbol = MutableLiveData("")
+    val sellerLocation = MutableLiveData("")
+    val isPlatinumUser= MutableLiveData(false)
+    val reputation = MutableLiveData("")
+    val productCondition = MutableLiveData("")
+    val soldQuantity = MutableLiveData(0)
 
     init {
         launchIO {
@@ -79,15 +81,12 @@ class ProductDetailViewModel(
             }
         }
         if (errors) {
-            showRetryErrorDialog(
-                routeNavigator = routeNavigator,
-                onRetry = {
-                    launchIO {
-                        navigateUp()
-                        delay(500)
-                        fetchProduct()
-                    }
-                }
+            val context: Context by inject()
+            handleError(
+                DialogUI(
+                    message = context.getString(R.string.error_fetching_product),
+                    title = context.getString(R.string.generic_error_title)
+                )
             )
         }
     }
@@ -129,7 +128,7 @@ class ProductDetailViewModel(
         }
     }
 
-    override fun handleError(dialogInfo: DialogUI) {
+    override fun handleError(dialogInfo: DialogUI?) {
         showRetryErrorDialog(
             dialog = dialogInfo,
             routeNavigator = routeNavigator,

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -24,11 +23,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lucas.yourmarket.presentation.ui.theme.YourMarketTheme
 import com.lucas.yourmarket.R
-import com.lucas.yourmarket.presentation.ui.theme.Dimens
-import com.lucas.yourmarket.presentation.ui.theme.YourMarketColor
-import com.lucas.yourmarket.presentation.ui.theme.placeHolderHint
+import com.lucas.yourmarket.presentation.ui.theme.*
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -89,7 +85,7 @@ fun SearchBar(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.search_placeholder),
-                    style = MaterialTheme.typography.placeHolderHint,
+                    style = YourMarketTypography.placeHolderHint,
                     color = Color.Unspecified,
                     maxLines = 1
                 )

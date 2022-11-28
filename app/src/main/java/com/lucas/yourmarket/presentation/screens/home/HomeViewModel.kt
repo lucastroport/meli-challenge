@@ -15,7 +15,7 @@ import com.lucas.yourmarket.presentation.models.ProductUI
 import com.lucas.yourmarket.presentation.navigation.RouteNavigator
 import com.lucas.yourmarket.presentation.screens.BaseViewModel
 import com.lucas.yourmarket.presentation.screens.detail.ProductDetailRoute
-import com.lucas.yourmarket.presentation.util.toCurrency
+import com.lucas.yourmarket.presentation.utils.toCurrency
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import org.koin.core.component.inject
@@ -115,24 +115,15 @@ class HomeViewModel(
 
     override fun onErrorReceived(message: String?) {
         val context: Context by inject()
-        showRetryErrorDialog(
-            dialog =
-                DialogUI(
-                    title = context.getString(R.string.generic_error_title),
-                    message = message
-                ),
-            routeNavigator = routeNavigator,
-            onRetry = {
-                launchIO {
-                    navigateUp()
-                    delay(500)
-                    onSearchEnter()
-                }
-            }
+        handleError(
+            DialogUI(
+                title = context.getString(R.string.generic_error_title),
+                message = message ?: context.getString(R.string.generic_error_message)
+            )
         )
     }
 
-    override fun handleError(dialogInfo: DialogUI) {
+    override fun handleError(dialogInfo: DialogUI?) {
         showRetryErrorDialog(
             dialog = dialogInfo,
             routeNavigator = routeNavigator,
