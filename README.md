@@ -34,12 +34,13 @@ Below mentioned are the steps to install, configure & run in your platform/distr
 git clone https://github.com/lucastroport/meli-challenge.git
 
 # Open the app via latest Android studio.
-The dependencies will be download;
+The dependencies will be downloaded;
 
 # Run the app by Android studio
 ```
 
 ### This project features:
+* Built using MVVM Architecture
 *   User Interface built with **[Jetpack Compose](https://developer.android.com/jetpack/compose)** 
 *   A single-activity architecture, using **[Navigation Compose](https://developer.android.com/jetpack/compose/navigation)**.
 *   A presentation layer that contains Compose screens (View) and a **ViewModel** per screen (or feature).
