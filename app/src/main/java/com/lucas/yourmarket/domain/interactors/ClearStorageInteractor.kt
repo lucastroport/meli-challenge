@@ -1,7 +1,6 @@
 package com.lucas.yourmarket.domain.interactors
 
 import android.util.Log
-import com.lucas.yourmarket.data.storage.datastore.implementations.StateLocalDatastoreImpl
 import com.lucas.yourmarket.data.storage.datastore.interfaces.ProductLocalDatastore
 import com.lucas.yourmarket.data.storage.datastore.interfaces.RemoteKeyDatastore
 import com.lucas.yourmarket.data.storage.datastore.interfaces.StateLocalDatastore

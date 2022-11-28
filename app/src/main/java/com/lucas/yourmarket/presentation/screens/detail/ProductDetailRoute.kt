@@ -12,7 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 
 object ProductDetailRoute : NavRoute<ProductDetailViewModel> {
 
-    private const val KEY_PRODUCT_ID = "PRODUCT_ID"
+    const val KEY_PRODUCT_ID = "PRODUCT_ID"
     
     override val route = "product/{$KEY_PRODUCT_ID}/"
 

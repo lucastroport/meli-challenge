@@ -9,3 +9,5 @@ sealed class Status<out T> {
         data class GeneralFailure(val message: String) : Failure()
     }
 }
+
+fun <T : Any> T.asSuccess(): Status.Success<T> = Status.Success(this)
