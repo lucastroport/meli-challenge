@@ -19,9 +19,8 @@ The android app lets you:
 
 ## Screenshots
 
-<p align="left">
+<p align="center">
   <img alt="Splash Screen" src="/readme/splash_sample.gif" width="200">
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img src="/readme/product_sample.gif" align="center"
-width="200" hspace="10" vspace="10">
+  <img alt="Search and product detail Screen" src="/readme/product_sample.gif"width="200">
 </p>
