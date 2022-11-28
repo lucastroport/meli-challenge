@@ -23,5 +23,6 @@ The android app lets you:
   <img alt="Splash Screen" src="/readme/splash_sample.gif" width="200">
 &nbsp; &nbsp; &nbsp; &nbsp;
   <img alt="Dark Mode" src="/readme/search_sample.gif"" width="200">
+  <br>
   <img alt="Dark Mode" src="/readme/product_sample.gif"" width="200">
 </p>
