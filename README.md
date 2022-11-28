@@ -20,8 +20,8 @@ The android app lets you:
 ## Screenshots
 
 <p align="center">
-  <img alt="Splash Screen" src="/readme/splash_sample.gif" width="45%">
+  <img alt="Splash Screen" src="/readme/splash_sample.gif" width="200">
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="Dark Mode" src="/readme/search_sample.gif"" width="45%">
-  <img alt="Dark Mode" src="/readme/product_sample.gif"" width="45%">
+  <img alt="Dark Mode" src="/readme/search_sample.gif"" width="200">
+  <img alt="Dark Mode" src="/readme/product_sample.gif"" width="200">
 </p>
