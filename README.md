@@ -19,10 +19,9 @@ The android app lets you:
 
 ## Screenshots
 
-<img src="/readme/splash_sample.gif" align="left"
-width="200"
-    hspace="10" vspace="10">
-<img src="/readme/product_sample.gif" align="center"
-width="200"
-    hspace="10" vspace="10">
-
+<p align="left">
+  <img alt="Splash Screen" src="/readme/splash_sample.gif" width="200">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="/readme/product_sample.gif" align="center"
+width="200" hspace="10" vspace="10">
+</p>
